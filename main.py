@@ -32,7 +32,117 @@ import time
 #                   Your Code Goes Below                #
 #########################################################
 
-
+'''
+description- sets up the dartboard for the game
+args- myScreen(turtle) and myturtle(turtle)
+return- none
+'''
+def setUpDartboard(myScreen, myturtle):
+	myScreen.setworldcoordinates(-2,-2,2,2)
+	drawSquare(myturtle,2,-1,1)
+	drawLine(myturtle,0,1,0,-1)
+	drawLine(myturtle,-1,0,1,0)
+	drawCircle(myturtle,1)
+'''
+description- draws the square of the dartboard
+args- myturtle(turtle), width(int), top_left_x, top_left_y
+return- none
+'''
+def drawSquare(myturtle, width, top_left_x, top_left_y):
+	myturtle.up()
+	myturtle.goto(top_left_x,top_left_y)
+	myturtle.down()
+	for i in range(4):
+		myturtle.forward(width)
+		myturtle.right(90)
+'''
+description- draws the axis 
+args- myturtle(turtle), x_start, y_start, x_end and y_end 
+return- none
+'''
+def drawLine(myturtle, x_start, y_start, x_end, y_end):
+	myturtle.up()
+	myturtle.goto(x_start, y_start)
+	myturtle.down()
+	myturtle.goto(x_end, y_end)
+	myturtle.up()
+'''
+description- draws the circle
+args- myturtle(turtle) and radius(integer)
+return- none
+'''
+def drawCircle(myturtle, radius):
+	myturtle.up()
+	myturtle.goto(0,-1)
+	myturtle.down()
+	myturtle.circle(radius)
+'''
+description- checks whether the turtle is within 1 unit away from the origin or not
+args- myturtle(turtle)
+return- true(bool) and false(bool)
+'''
+def isInCircle(myturtle):
+	if myturtle.distance(0,0)<1:
+		return True
+	else:
+		return False
+'''
+description- throws the darts at random
+args- myturtle(turtle)
+return- true(bool) and false(bool)
+'''
+def throwDart(myturtle):
+	myturtle.speed(0)
+	myturtle.up()
+	x = random.uniform(-1,1)
+	y = random.uniform(-1,1)
+	myturtle.goto(x,y)
+	myturtle.down()
+	if isInCircle(myturtle):
+		myturtle.color("green")
+		myturtle.dot()
+		return True
+	else:
+		myturtle.color("red")
+		myturtle.dot()
+		return False
+'''
+description- calculates who win the game outn of the two players
+args- myturtle(turtle)
+return-	PLAYER ONE WINS!(string) or "PLAYER TWO WINS!"(string) or "ITS A TIE!"(string)
+'''
+def playDarts(myturtle):
+	player_one_score = 0
+	player_two_score = 0
+	
+	for i in range(10):
+		throwDart(myturtle)
+		if isInCircle(myturtle):
+			player_one_score +=1
+	
+		throwDart(myturtle)
+		if isInCircle(myturtle):
+			player_two_score +=1
+		
+	if player_one_score > player_two_score:
+		print( "PLAYER ONE WINS!")
+	elif player_one_score < player_two_score:
+		print( "PLAYER TWO WINS!")
+	else:
+		print( "ITS A TIE!")
+'''
+description- gives the approximation of pi 
+args- darty(turtle), number_darts(integer)
+return- approximation of pi(float)
+'''
+def montePi(darty, number_darts):
+	inside_count = 0
+	for i in range(number_darts):
+		throwDart(darty)
+		if isInCircle(darty): 
+	 		inside_count +=1
+	return ((inside_count/number_darts)*4)	
+	 
 
 #########################################################
 #         Do not alter any code below here              #
