@@ -123,6 +123,9 @@ def playDarts(myturtle):
 		throwDart(myturtle)
 		if isInCircle(myturtle):
 			player_two_score +=1
+			
+	print ("player one you have", str(player_one_score) ,"points")
+	print ("player two you have", str(player_two_score) ,"points")
 		
 	if player_one_score > player_two_score:
 		print( "PLAYER ONE WINS!")
